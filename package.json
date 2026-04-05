@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "http-server -p 8080"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "face-api.js": "^0.22.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

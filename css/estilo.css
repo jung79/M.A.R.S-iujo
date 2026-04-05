@@ -1,0 +1,826 @@
+/* Configuración básica */
+:root {
+    --primario: #2563eb;
+    --oscuro: #1d2026;
+    --fondo:#f8fafc;
+    --borde: #e2e8f0;
+    --letra: #ff0000;
+    --letra2:rgb(25, 0, 255)0;
+    --letra3: #ffffff;
+    --texto-suave: #64748b;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, Tahoma,sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, Tahoma,sans-serif;
+    background-color: var(--oscuro);
+    color: var(--letra);
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Barra de navegación blanca y sticky */
+.navbar {
+    background-color: #ffffff;
+    height: 90px; /* Un poco más alta para acomodar el logo cómodo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    width: 90%;
+    max-width: 1400px; /* Un poco más ancho para dar aire */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- ESTILOS DEL LOGO (Izquierda) --- */
+.logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 60px; /* Ajusta el tamaño de la imagen */
+    width: auto;
+    margin-right: 15px; /* Espacio entre imagen y texto */
+    transition: transform 0.3s ease; /* Pequeña animación opcional */
+}
+
+/* Opcional: Pequeño efecto al pasar el mouse por el logo */
+.logo-container:hover .logo-img {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    color: var(--letra2); /* Azul Rey base para el logo */
+    font-size: 2rem;
+    font-weight: 800; /* Más grueso para que resalte */
+    letter-spacing: 2px;
+}
+
+/* --- ESTILOS DEL MENÚ (Derecha) --- */
+.nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-left: 40px; /* Más espacio entre opciones */
+}
+
+/* Estilo base de los enlaces */
+.nav-link {
+    text-decoration: none;
+    color: #444; /* Gris oscuro elegante por defecto */
+    font-size: 1.15rem;
+    font-weight: 600;
+    transition: all 0.3s ease; /* Transición suave para todos los efectos */
+    position: relative; /* Para el subrayado opcional */
+}
+
+/* --- EFECTO HOVER: Azul Rey con brillo Celeste --- */
+.nav-link:hover {
+    color: #00c3ff; /* Azul Rey (Royal Blue) */
+    
+    transform: translateY(-3px); /* Pequeño salto hacia arriba */
+}
+
+/* Opcional: Subrayado brillante al hacer hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #00eeff; /* Color Celeste */
+    box-shadow: 0 0 10px #00d9ff; /* Brillo del subrayado */
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --color-azul-rey: #4169E1;
+    --color-celeste-brillo: #00FFFF;
+    --color-texto-oscuro: #333;
+    --color-texto-claro: #fff;
+    --color-fondo-seccion: #f8fafc; /* Gris muy claro para contrastar con la nav blanca */
+}
+
+/* --- ESTILOS DE LA SECCIÓN HERO --- */
+.hero-section {
+    background-color: var(--color-fondo-seccion);
+    min-height: calc(100vh - 90px); /* Ocupa el resto de la pantalla, restando la nav de 90px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    overflow: hidden; /* Importante para que las imágenes animadas no se salgan */
+}
+
+.hero-container {
+    width: 90%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px; /* Espacio entre texto e imagen */
+}
+
+/* --- LADO IZQUIERDO: TEXTO Y BOTONES --- */
+.hero-content {
+    flex: 1; /* Ocupa la mitad del espacio */
+    max-width: 650px;
+}
+
+.hero-title {
+    font-size: 4rem; /* Título muy grande */
+    font-weight: 800;
+    color: var(--color-azul-rey);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    color: var(--color-texto-oscuro);
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+/* Estilos de los Botones */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--color-azul-rey);
+    color: var(--color-texto-claro);
+    box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #3152c7; /* Azul un poco más oscuro */
+    box-shadow: 0 6px 20px rgba(65, 105, 225, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-azul-rey);
+    border: 2px solid var(--color-azul-rey);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(65, 105, 225, 0.05);
+    transform: translateY(-2px);
+}
+
+/* --- LADO DERECHO: COMPOSICIÓN DE IMÁGENES --- */
+.hero-visual {
+    flex: 1; /* Ocupa la otra mitad */
+    position: relative; /* Necesario para la superposición absoluta */
+    height: 600px; /* Altura fija para la composición */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor de la Imagen de Fondo */
+.visual-background-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden; /* Para que la imagen se corte si es más grande */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    
+    /* ANIMACIÓN DEL FONDO: Deslizamiento desde abajo */
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideInFromBottom 1s ease-out forwards;
+}
+
+.visual-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen cubre el contenedor sin deformarse */
+}
+
+/* Imagen del Robot Superpuesta */
+.visual-robot {
+    position: absolute;
+    width: 80%; /* Ajusta el tamaño relativo del robot */
+    max-width: 500px;
+    height: auto;
+    z-index: 10; /* Por encima del fondo */
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2)); /* Sombra al robot */
+
+    /* ANIMACIÓN DEL ROBOT: Deslizamiento secuencial */
+    opacity: 0;
+    transform: translateX(100px); /* Desliza desde la derecha */
+    animation: slideInFromRight 1s ease-out forwards;
+    animation-delay: 1.5s; /* 1s (fondo) + 0.5s (seguridad) + 1s (tu requisito de 1s después) */
+}
+
+/* --- DEFINICIÓN DE LAS ANIMACIONES (@keyframes) --- */
+
+/* Animación 1: Desliza desde abajo hacia arriba */
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación 2: Desliza desde la derecha hacia la izquierda */
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+
+
+
+
+
+
+.services-section{
+
+
+    /* Capa oscura opcional para que el texto de las tarjetas se lea mejor */
+    background-color: rgba(0, 0, 0, 0.5); 
+    background-blend-mode: overlay;
+
+    /* Configuración de la imagen de fondo */
+    background-image: url("../img/fondo.png"); /* Reemplaza con tu archivo */
+    background-size: cover;      /* Cubre todo el ancho y alto */
+    background-position: center; /* Centra la imagen */
+    background-attachment: fixed; /* Opcional: efecto Parallax (el fondo se queda fijo al hacer scroll) */
+    
+
+}
+/* Contenedor que alinea las tarjetas una al lado de la otra */
+.cards-row {
+    display: flex;            /* Activa el modo flexible */
+    flex-direction: row;      /* Las pone en fila (horizontal) */
+    justify-content: center;  /* Las centra horizontalmente */
+    align-items: stretch;     /* Hace que todas tengan la misma altura */
+    gap: 25px;                /* Espacio exacto entre cada tarjeta */
+    padding: 20px;
+    flex-wrap: wrap;          /* Si no caben (en celulares), se bajan automáticamente */
+}
+.section-title{
+    color: #0059ff;
+}
+/* Estilo individual de cada tarjeta */
+.service-card {
+    background: #ffffff;
+    border: 1px solid #e1e8f0;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;             /* Ancho fijo para que se vean uniformes */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;   /* Alinea el contenido interno de arriba a abajo */
+}
+
+/* Efecto visual al pasar el mouse */
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(65, 105, 225, 0.15);
+    border-color: #00FFFF; /* Brillo celeste M.A.R.S. */
+}
+.service-card img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover img{
+    transform: translateY(-8px) scale(1.6);
+}
+
+/* Contenedor de la imagen */
+.image-container {
+    width: 100%;
+    height: 160px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Mantiene la proporción de tus imágenes */
+}
+
+/* Títulos y textos */
+.service-card h3 {
+    color: #4169E1; /* Azul Rey */
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+.footer-mars {
+    background: linear-gradient(180px, #001a4d 0%, #000a1a 100%); /* Azul muy oscuro a negro */
+    color: #ffffff;
+    padding: 60px 20px 20px;
+    border-top: 10px solid #00FFFF; /* Línea celeste brillante */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo {
+    color: #0084ff;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.proyecto-nombre {
+    font-weight: bold;
+    color: #4169E1; /* Azul Rey */
+    margin-bottom: 10px;
+}
+
+.proyecto-desc {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.footer-section h3 {
+    border-bottom: 2px solid #4169E1;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-size: 1.2rem;
+}
+.footer-section img {
+    width: 100px;
+}
+
+.lista-integrantes {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-integrantes li {
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.lista-integrantes li::before {
+    content: "▹";
+    color: #00FFFF;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-bottom: 100px;
+    padding-top: 100px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    color: #888;
+}
+.footer-bottom img{
+    height: 50px;
+}
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-section h3 {
+        display: block;
+    }
+}
+
+
+
+
+
+/*movimiento*/
+.monitoreo-section {
+    padding: 60px 20px;
+    background-color:var(--fondo); ;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.monitoreo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* --- Panel Izquierdo --- */
+.panel-izquierdo {
+    flex: 1.5; /* Ocupa un poco más de espacio */
+    min-width: 350px;
+}
+
+.visor-camara {
+    width: 100%;
+    height: 350px;
+    background: #000;
+    border-left: 10px solid #0040ff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(65, 105, 225, 0.3);
+}
+
+/* Línea de escaneo láser */
+.escaneo-animado {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #00FFFF;
+    box-shadow: 0 0 15px #00FFFF;
+    top: 0;
+    animation: scan 3s infinite linear;
+    z-index: 2;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+.tag-cam {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 0.7rem;
+    color: #00FFFF;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 8px;
+    z-index: 3;
+}
+
+/* Datos Biométricos */
+.datos-biometricos {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #00FFFF;
+}
+
+.dato-item {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.label { color: #000000; font-weight: bold;}
+.valor { color: #2600ff; font-weight: bold; }
+
+.barra-carga {
+    width: 100px;
+    height: 8px;
+    background: #222;
+    border-radius: 4px;
+    position: relative;
+}
+
+.barra-carga::after {
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background: #0040ff;
+    border-radius: 4px;
+    animation: cargar 2s infinite alternate;
+}
+
+@keyframes cargar {
+    from { width: 10%; }
+    to { width: 90%; }
+}
+
+/* --- Panel Derecho --- */
+.panel-derecho {
+    flex: 1;
+    min-width: 300px;
+}
+
+.panel-derecho img{
+    width: 200px;
+}
+
+.info-card {
+    background: #1a1f2b;
+    padding: 30px;
+    border-radius: 10px;
+    height: 100%;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.instrucciones {
+    margin-top: 30px;
+}
+
+.instrucciones h3 {
+    font-size: 1.1rem;
+    color: #00FFFF;
+    margin-bottom: 15px;
+}
+
+.instrucciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+.instrucciones li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.instrucciones span {
+    background: #0040ff;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+/*rostr*/
+
+
+.registro-rostro {
+    padding: 80px 20px;
+    background-color:var(--fondo); ;
+    color: white;
+}
+.registro-rostro p{
+    color: rgb(0, 0, 0);
+}
+
+.registro-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+/* --- Panel Izquierdo (Circular) --- */
+.panel-captura {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+}
+
+.visor-circular {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%; /* Hace el DIV redondo */
+    border: 4px solid #4169E1;
+    background: #000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(65, 105, 225, 0.4);
+    overflow: hidden;
+}
+
+/* Anillo de escaneo giratorio */
+.anillo-escaneo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid #00FFFF;
+    border-radius: 50%;
+    animation: girar 2s linear infinite;
+}
+
+@keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.status-cam {
+    font-size: 0.8rem;
+    color: #4169E1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.indicadores-estado {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.estado-item {
+    font-size: 0.9rem;
+    color: #444; /* Color apagado por defecto */
+    transition: 0.3s;
+}
+
+#ind-detectado.active { color: #00FF00; text-shadow: 0 0 10px #00FF00; }
+#ind-no-detectado.active { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+
+/* --- Panel Derecho --- */
+.panel-info-registro {
+    flex: 1.2;
+    min-width: 300px;
+}
+.panel-info-registro  img{
+    width: 200px;
+}
+
+.info-content h2 {
+    color: #2f00ff;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.btn-registrar {
+    background: #4169E1;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 25px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(65, 105, 225, 0.4);
+}
+
+.btn-registrar:hover {
+    background: #00FFFF;
+    color: #001a4d;
+    transform: scale(1.05);
+}
+
+.detalles-sistema h4 {
+    color: #4169E1;
+    margin-bottom: 10px;
+}
+
+.detalles-sistema p {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.5;
+}
+
+.webcamspace {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite hacer clic en el video debajo del canvas */
+}
+
+video#webcam {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+canvas#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Asegura que el canvas esté por encima del video */
+    pointer-events: none; /* Permite hacer clic en el video debajo del canvas */
+    border: 1px solid rgba(255,255,255,0.4);
+}
