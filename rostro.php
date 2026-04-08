@@ -20,17 +20,18 @@
                     <div class="anillo-escaneo" style="position:relative; z-index:2;"></div>
                 </div>
 
-                <p class="status-cam" id="status-cam" style="position:absolute; bottom:8px; z-index:3;">ESPERANDO CÁMARA...</p>
-                
                 <div style="margin: 10px 0;">
-                    <button onclick="iniciarCamara()">Encender cámara</button>
-                    <button onclick="apagarCamara()">Apagar cámara</button>
+                    <button class="optionButton btnOn btnPush" onclick="iniciarCamara()">Encender cámara</button>
+                    <button class="optionButton btnOff" onclick="apagarCamara()">Apagar cámara</button>
                 </div>
                 
                 <div class="indicadores-estado">
                     <div class="estado-item" id="ind-detectado">● Detectado</div>
                     <div class="estado-item active" id="ind-no-detectado">● No Detectado</div>
                 </div>
+
+                <p class="status-cam" id="status-cam" style="position:relative; margin-top:30px; z-index:3;">ESPERANDO CÁMARA...</p>
+                
             </div>
 
 
@@ -42,7 +43,7 @@
 
                     <!-- Formulario de registro -->
                     <div id="form-registro" style="margin: 15px 0;">
-                        <input type="text" id="input-nombre" placeholder="Escribe tu nombre completo"
+                        <input type="text" id="input-nombre" pattern="[a-zA-Z0-9]+" maxlength="16" placeholder="Añadele una etiqueta a tu rostro"
                                style="padding: 8px; width: 100%; margin-bottom: 8px;">
                         <button class="btn-registrar" onclick="registrarRostro()">REGISTRAR ROSTRO</button>
                         <p id="msg-registro" style="margin-top: 8px;"></p>
@@ -57,6 +58,15 @@
 
         </div>
     </section>
+
+    <section>
+        
+                    
+                <?php include 'php/lista_personas.php';?>
+
+               
+    </section>
+            
 
     <footer class="footer-mars">
         <div class="footer-container">

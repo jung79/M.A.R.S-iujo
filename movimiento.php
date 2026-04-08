@@ -24,8 +24,9 @@
                 <p class="tag-cam">LIVE: M.A.R.S. SENSOR001</p>
             </div>
                 
-            <button id="toggleLandMark" class="optionButton">Mostrar las marcas: <span id="landmarkStatus">No</span> </button>
-           
+            <button id="toggleLandMark" class="optionButton" style="margin-right: 100px;">Mostrar las marcas: <span id="landmarkStatus">No</span> </button>
+            <button class="optionButton btnOn btnPush" onclick="iniciarCamara()">Encender cámara</button>
+            <button class="optionButton btnOff" onclick="apagarCamara()">Apagar cámara</button>
 
             <div class="datos-biometricos">
                 <div class="dato-item">

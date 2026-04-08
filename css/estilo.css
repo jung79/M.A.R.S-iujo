@@ -25,6 +25,25 @@ body {
     text-align: center;
 }
 
+.lista-rostros{
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.tabla-rostros {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: rgb(0, 0, 0);
+}
 
 
 
@@ -837,10 +856,38 @@ canvas#overlay {
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
     font-weight: bold;
     transition :all 0.3s ease;
+    margin-right: 5px;
 }
 
 .optionButton:hover{
     background:rgb(0 ,64, 255);
     color: white;
+    cursor: pointer;
 }
 
+.btnOn {
+    background: rgb(0, 255, 0);
+}
+
+.btnOff {
+    background: rgb(255, 0, 0);
+}
+
+.btnOn:hover {
+    background: rgb(0, 92, 8);
+}
+.btnOff:hover {
+    background: rgb(99, 0, 0);
+}
+
+.btnPush{
+    background: white;
+    box-shadow: 0px 0px 0px;
+    transform: translateX(5px) translateY(5px);
+}
+
+.btnPush:hover{
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    cursor: default;
+}

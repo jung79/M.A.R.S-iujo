@@ -13,36 +13,19 @@ const ctx = canvas.getContext('2d');//Obtener el contexto del canvas para dibuja
 let width = webcam.clientWidth;//Obtener el ancho del video para ajustar el canvas.
 let height = webcam.clientHeight;//Obtener el alto del video para ajustar el canvas.
 
-
+let stream           = null;
 let faceMatcher      = null;
 let faceUmbral       = 0.6;
 let showLedmarks     = false;
 let modelosCargados  = false;
 let detectionInterval = null;
 let cameraCalibration = 500;
+let camaraOn = false;
 
 toggleLandMarkButton.addEventListener('click', () => {
   showLedmarks = !showLedmarks;
   landmarkStatus.textContent = showLedmarks ? 'Sí' : 'No';
 });/*-----Accion de alternar la visualizacion de las marcas faciales-----*/
-
-webcam.addEventListener('play', () => {
-  if (modelosCargados) {
-    iniciarDeteccion();
-  } else {
-    console.log('Esperando a que los modelos se carguen antes de iniciar la detección');
-  }
-});
-
-navigator.mediaDevices.getUserMedia({ video: true })/*------Cargar la camara------*/
-    .then(stream => {//Asignar el stream de la camara al elemento de video
-      webcam.srcObject = stream;
-      webcam.play();
-    })
-    .catch(error => {//Si falla al acceder a la camara, mostrar el error en la consola
-      console.error('Error al acceder a la cámara:', error);
-    });
-
 
 
 async function cargarModelos() {
@@ -159,7 +142,10 @@ async function estimarDistancia() {
           ctx.fillStyle = '#00FFFF';
           ctx.textBaseline = 'bottom';
           ctx.fillText(label + ":", ultimoBox.x + ultimoBox.width + 5, ultimoBox.y + 20);
-          ctx.fillText(distanciaCm.toFixed(2) + " cm", ultimoBox.x + ultimoBox.width + 5, ultimoBox.y + 40);  
+
+          var _distanciaText = distanciaCm > 100 ? (distanciaCm/100).toFixed(2) + " m" : distanciaCm.toFixed(2) + " cm";
+
+          ctx.fillText(_distanciaText, ultimoBox.x + ultimoBox.width + 5, ultimoBox.y + 40);  
         }
 
       }); 
@@ -177,9 +163,20 @@ async function estimarDistancia() {
           distances += ",";
         }
         humans += element.label + " ";
+        if(element.distance > 100){
+        distances += (element.distance/100).toFixed(2) + "m ";
+        } else {
         distances += element.distance.toFixed(2) + "cm ";
+        }
         myNumber++;
       });
+
+      if(humans.length > 40){
+        humans = humans.substring(0, 37) + "...";
+      }
+      if(distances.length > 40){
+        distances = distances.substring(0, 37) + "...";
+      }
 
       document.getElementById('humans').textContent = humans;
       document.getElementById('distance').textContent = distances;
@@ -228,10 +225,9 @@ configurada a 15ms por defecto para una detección fluida.
 
 let refreshFrecuency = 15; // Frecuencia de actualización en ms
 
-function iniciarDeteccion(){
+async function iniciarDeteccion(){
   if (!modelosCargados) {
-    console.log('No se puede iniciar detección: los modelos aún no están cargados');
-    return;
+    await cargarModelos();
   }
 
   document.getElementById('distance').textContent = `Cargando...`;
@@ -250,6 +246,7 @@ function iniciarDeteccion(){
 
 async function init() {
   await cargarModelos();
+  await iniciarCamara();
   faceMatcher = await obtenerRostros(faceUmbral);
   modelosCargados = true;
   if (!detectionInterval && webcam.readyState >= 2) {
@@ -261,5 +258,48 @@ init(); // Iniciamos todo en orden.
 
 async function procesarLoop() {
     await estimarDistancia(); // Ejecuta la lógica
+    if(camaraOn)
     requestAnimationFrame(procesarLoop); // Se llama a sí mismo en el próximo frame disponible
 }
+
+async function iniciarCamara() {
+    if (camaraOn) return;
+
+    try {
+        // Intentar acceder a la camara y 
+        // configurar el video y los 
+        // bucles de deteccion y dibujo.
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        webcam.srcObject = stream;
+        camaraOn = true;
+        document.querySelector('.btnOn').classList.add('btnPush');
+        document.querySelector('.btnOff').classList.remove('btnPush');
+
+        webcam.onloadedmetadata = () => {
+            canvas.width  = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            iniciarDeteccion();
+        };
+    } catch (e) {
+        console.log('ERROR: ' + e.message);
+    }
+}
+
+/*------------------------------------------/
+Función para apagar la cámara.
+/------------------------------------------*/
+function apagarCamara() {
+    if (!camaraOn) return;
+    stream.getTracks().forEach(t => t.stop());
+    webcam.srcObject  = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    camaraOn = false;
+    document.querySelector('.btnOn').classList.remove('btnPush');
+    document.querySelector('.btnOff').classList.add('btnPush');
+    document.getElementById('distance').textContent = `Esperando camara...`;
+    document.getElementById('estado').textContent = 'Esperando camara...';
+    document.getElementById('humans').textContent = 'Esperando camara...';
+}
+
+window.iniciarCamara = iniciarCamara;
+window.apagarCamara = apagarCamara;

@@ -53,6 +53,8 @@ async function iniciarCamara() {
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         camaraOn = true;
+        document.querySelector('.btnOn').classList.add('btnPush');
+        document.querySelector('.btnOff').classList.remove('btnPush');
         setStatus('CÁMARA ACTIVA');
 
         video.onloadedmetadata = () => {
@@ -77,6 +79,8 @@ function apagarCamara() {
     descriptorActual = null;
     ultimoBox        = null;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.querySelector('.btnOn').classList.remove('btnPush');
+    document.querySelector('.btnOff').classList.add('btnPush');
     setStatus('ESPERANDO CÁMARA...');
     setDetectado(false);
 }
@@ -165,6 +169,19 @@ async function registrarRostro() {
         mostrarMensaje('Escribe tu nombre completo.', 'red');
         return;
     }
+    if (nombre.length < 3) {
+        mostrarMensaje('El nombre debe tener al menos 3 caracteres.', 'red');
+        return;
+    }
+     if (nombre.length > 16) {
+        mostrarMensaje('El nombre debe tener un máximo de 16 caracteres.', 'red');
+        return;
+    }
+    const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/;
+    if (!soloLetras.test(nombre)) {
+        mostrarMensaje('El nombre solo puede contener letras y espacios.', 'red');
+        return;
+    }
     if (!descriptorActual) {
         // Si no se detecta rostro, 
         // mostrar un mensaje y salir de la funcion.
@@ -202,6 +219,21 @@ async function registrarRostro() {
             document.getElementById('input-nombre').value = '';
             // Se actualiza el faceMatcher para incluir el nuevo rostro registrado.
             faceMatcher = await obtenerRostros(faceUmbral);
+
+            // Se agrega una nueva fila a la tabla de rostros registrados con el nuevo rostro.
+            var nuevaFila = document.createElement('tr');
+            nuevaFila.id = 'persona-' + data.id;
+            nuevaFila.innerHTML = `
+                <td>${data.nombre}</td>
+                <td><button class="optionButton btnOff" onclick="eliminarPersona(${data.id}, '${data.nombre}')">Eliminar</button></td>
+                `;
+            document.getElementById('tabla-rostros').appendChild(nuevaFila);
+
+            // Si la tabla estaba vacia, se actualiza el encabezado para mostrar "Etiqueta"
+            // en lugar de "La tabla esta vacia".
+            document.getElementById('taglist').textContent = 'Etiqueta';
+
+
         } else {
             //Si el registro falla, 
             // se muestra un mensaje de error 
@@ -327,10 +359,52 @@ async function initRostro() {
     faceMatcher = await obtenerRostros(faceUmbral);
 }
 
+async function eliminarPersona(id, nombre) {
+    //Funcion para eliminar personas registradas en el servidor.
+    if (!id) return;
+
+    // Mensaje de confirmación antes de eliminar la persona, mostrando el nombre de la persona a eliminar.
+    var confirmar = confirm('¿Estás seguro de que deseas eliminar a ' + nombre + '?');
+
+    if (!confirmar) return;
+    try {  
+        const res  = await fetch('./php/eliminar.php', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ id })
+        });
+        const data = JSON.parse(await res.text());
+        if (data.ok) {
+            mostrarMensaje('✔ ' + nombre + ' eliminado correctamente.', 'lime');
+            // Si todo sale bien, se muestra el mensaje de exito 
+            // y se actualiza el faceMatcher para reflejar la eliminación del rostro.
+            faceMatcher = await obtenerRostros(faceUmbral);
+
+            // Se elimina la fila de la lista de rostros
+            document.getElementById('persona-' + id)?.remove();
+
+            // Si después de eliminar la persona, 
+            // la tabla queda vacía, se actualiza 
+            // el encabezado para mostrar "La tabla esta vacia".
+            var tabla = document.getElementById("tagTable");
+            var totalFilas = tabla.rows.length;
+
+            if (totalFilas === 1) {
+            document.getElementById('taglist').textContent = 'La tabla esta vacia';
+            }
+                
+        }
+    } catch (e) {
+        // En caso de error, se muestra un mensaje de error con la información pertinente.
+        mostrarMensaje('Error de conexión: ' + e.message, 'red');
+    }
+}
+
 initRostro();
 
 // Exponer funciones necesarias al DOM cuando se carga como módulo.
 window.registrarRostro = registrarRostro;
 window.iniciarCamara = iniciarCamara;
 window.apagarCamara = apagarCamara;
+window.eliminarPersona = eliminarPersona;
 
